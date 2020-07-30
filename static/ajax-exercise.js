@@ -2,12 +2,10 @@
 
 // Part 1
 
+// use 'response' to update the text in #fortune-text
 $('#get-fortune-button').on('click', () => {
-  $.get('/replaceMe', (response) => {
-    //
-    // This is the body of the callback function for $.get!
-    // TODO: use `response` to update the text in `div#fortune-text`
-    //
+  $.get('/fortune', (response) => {
+    $('#fortune-text').text(response);
   });
 });
 
