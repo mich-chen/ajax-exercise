@@ -23,7 +23,7 @@ $('#weather-form').on('submit', (evt) => {
   // these blocks of code
 
   $.get('/weather', formData, (response) => {
-    $('#weather-info').text(response.forecast)
+    $('#weather-info').text(response.forecast);
     // we only care about the returning the forecast 
   });
 });
@@ -36,10 +36,22 @@ $("#order-form").on('submit', (evt) => {
 
   // TODO: create an object to store key-value pairs that'll be sent to
   // the server
+  const orderData = {
+    qty: $('#qty-field').val(), 
+    melonType: $('#melon-type-field').val()
+  };
 
   // TODO: make a request to /order-melons
   //
   // In the callback function, use the response from the server to
   // update #order-status. IMPORTANT: if the result code is 'ERROR',
   // make it show up in red.
+
+  $.post('/order-melons', orderData, (response) => {
+    if (response.code === 'ERROR') {
+      $('div#order-status').addClass('order-error');
+      $('.order-error').text(`${response.code} ${response.msg}`);
+    }
+    $('#order-status').text(`${response.code} ${response.msg}`);
+  });
 });
